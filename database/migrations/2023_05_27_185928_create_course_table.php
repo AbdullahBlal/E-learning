@@ -17,9 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('teacher_id');
             $table->string('title');
-            $table->string('description');
-            $table->string('duration');
+            $table->longText('description');
+            $table->time('duration')->default('0');
+            $table->string('slug');
             $table->string('educational_level');
+            $table->string('image');
+            $table->string('meta_title');
+            $table->string('meta_description');
+            $table->string('meta_keywords');
+            $table->tinyInteger('status')->default('0');
+            $table->tinyInteger('popular')->default('0');
             $table->timestamps();
         });
     }
