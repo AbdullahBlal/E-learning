@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assistants', function (Blueprint $table) {
+        Schema::create('quiz_question_answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('quiz_question_id')->constrained('quiz_questions');
+            $table->foreignId('student_course_quiz_id')->constrained('student_course_quizzes');
+            $table->double('answer_points');
+            $table->string('content');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistants');
+        Schema::dropIfExists('quiz_question_answer');
     }
 };

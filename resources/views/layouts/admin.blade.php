@@ -39,7 +39,13 @@
     <script src="{{asset('admin/js/plugins/perfect-scrollbar.min.js')}}" defer></script>
     <script src="{{asset('admin/js/plugins/smooth-scrollbar.min.js')}}" defer></script>
     <script src="{{asset('admin/js/plugins/chartjs.min.js')}}" defer></script>
-    <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if(session('status'))
+        <script>
+            swal("{{ session('status') }}")
+        </script>
+    @endif
+<script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
         new Chart(ctx, {

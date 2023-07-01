@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('student', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email');
             $table->string('address');
             $table->string('password');
             $table->string('mobile');
+            $table->foreignId('educational_level_id')->constrained('educational_level');
+            $table->foreignId('coupon_id')->constrained('coupons');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
