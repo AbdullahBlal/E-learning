@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->foreignId('coupon_type_id')->constrained('coupon_type');
+            $table->foreignId('coupon_type_id')->constrained('coupon_types');
             $table->dateTime('expire_date');
             $table->boolean('activated');
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupon');
+        Schema::dropIfExists('coupons');
     }
 };

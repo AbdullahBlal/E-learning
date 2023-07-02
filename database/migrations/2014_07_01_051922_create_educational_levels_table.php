@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('coupon_type', function (Blueprint $table) {
+        Schema::create('educational_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupon_type');
+        Schema::dropIfExists('educational_levels');
     }
 };

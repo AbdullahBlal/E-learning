@@ -9,12 +9,12 @@ use mysql_xdevapi\Table;
 class Teacher extends Model
 {
     use HasFactory;
-    protected $table = ('teacher');
+    protected $table = ('teachers');
     protected $fillable = ['name','email','password','address','mobile'];
 
     public function courses(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(course::class);
+        return $this->hasMany(Course::class);
     }
 }
 
