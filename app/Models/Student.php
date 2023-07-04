@@ -9,7 +9,7 @@ class Student extends Model
 {
     use HasFactory;
     protected $table = 'students';
-    protected $fillable = ['name','email','address','password','mobile'];
+    protected $fillable = ['user_id'];
 
     public function courses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

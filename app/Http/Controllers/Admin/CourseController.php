@@ -13,7 +13,7 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = \App\Models\Course::all();
+        $courses = Course::all();
         return view('admin.Course.index',compact('courses'));
         #return view('',compact('course'));
     }
@@ -23,7 +23,7 @@ class CourseController extends Controller
     }
     public function insert(Request $request)
     {
-        $course = new \App\Models\Course();
+        $course = new Course();
         if($request->hasFile('image'))
         {
             $file = $request->file('image');
@@ -46,7 +46,7 @@ class CourseController extends Controller
             $course->duration = 0;
         }
         $course->status = $request->input('status') == TRUE ?'1':'0';
-        $course->popular = $request->input('popular') == TRUE ?'1':'0';;
+        $course->popular = $request->input('popular') == TRUE ?'1':'0';
         $course->save();
         return redirect('/dashboard')->with('status','Course added successfully');
     }
@@ -86,7 +86,7 @@ class CourseController extends Controller
             $course->duration = 0;
         }
         $course->status = $request->input('status') == TRUE ?'1':'0';
-        $course->popular = $request->input('popular') == TRUE ?'1':'0';;
+        $course->popular = $request->input('popular') == TRUE ?'1':'0';
         $course->update();
         return redirect('/dashboard')->with('status','Course updated successfully');
     }

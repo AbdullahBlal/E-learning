@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use mysql_xdevapi\Table;
 
 class Teacher extends Model
 {
     use HasFactory;
     protected $table = ('teachers');
-    protected $fillable = ['name','email','password','address','mobile'];
+    protected $fillable = ['user_id'];
 
-    public function courses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
     }
