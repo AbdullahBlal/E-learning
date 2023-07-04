@@ -99,7 +99,7 @@ class RegisterController extends Controller
           'coupon_id' => $coupon->id,
           'user_id' =>  $user->id,
       ]);
-
+        $student->save();
 
 
      return $user;
