@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\EducationalLevel;
+use App\Models\Student;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Coupon;
+use App\Rules\CouponValidation;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,7 +46,16 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function showRegistrationForm()
+    {
+        $educational_levels = EducationalLevel::all();
+        return view('Auth/register')->with('educationalLevels',$educational_levels);
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,9 +68,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'coupon' => ['required', 'string', 'min:8', new CouponValidation],
+            'mobile'=>['required','string', 'max:11' ,'min:11'],
+            'address'=>['required','string', 'max:50' ,'min:5'],
+            'educational_level_id'=>['required']
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -64,10 +82,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $code = $data['coupon'];
+        $coupon = Coupon::where("code","=","$code")->first();
+        $coupon->activated =true;
+        $coupon->save();
+      $user =   User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+      $user->save();
+      $student = Student::create([
+          'mobile'=> $data['mobile'],
+          'address'=> $data['address'],
+          'educational_level_id' => $data['educational_level_id'],
+          'coupon_id' => $coupon->id,
+          'user_id' =>  $user->id,
+      ]);
+
+
+
+     return $user;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CourseVideoController;
 use App\Http\Controllers\Admin\TeacherController;
@@ -27,6 +28,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/courses',[CourseController::class,'index']);
 Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('dashboard',[AdminController::class, 'index']);
+    Route::get('coupons',[CouponController::class, 'index']);
+    Route::post('insert-coupon',[CouponController::class, 'insert']);
+    Route::get('edit-coupon/{id}',[CouponController::class, 'edit']);
+    Route::get('delete-coupon/{id}',[CouponController::class, 'delete']);
+    Route::put('update-coupon/{id}',[CouponController::class, 'update']);
+    Route::get('add-coupon',[CouponController::class, 'add']);
     Route::get('courses',[CourseController::class, 'index']);
     Route::get('add-courses',[CourseController::class, 'add']);
     Route::post('insert-courses',[CourseController::class, 'insert']);

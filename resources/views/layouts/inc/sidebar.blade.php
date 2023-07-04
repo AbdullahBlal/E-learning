@@ -37,6 +37,14 @@
                     <span class="nav-link-text ms-1">Courses</span>
                 </a>
             </li>
+            <li class="nav-item {{Request::is('coupons') ? 'active':''}}">
+                <a class="nav-link text-white " href="{{url('coupons')}}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">receipt_long</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Coupons</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-white " href="../pages/virtual-reality.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
