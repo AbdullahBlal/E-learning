@@ -35,7 +35,7 @@ Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('delete-course/{id}',[CourseController::class,'delete']);
     Route::get('course_videos',[CourseVideoController::class,'index']);
     Route::get('teachers',[TeacherController::class,'index']);
-    Route::get('add-teacher',[TeacherController::class,'add']);
+    Route::get('add-teacher',[TeacherController::class, 'assignRole']);
     Route::post('insert-teacher',[TeacherController::class,'insert']);
     Route::get('edit-teacher/{id}',[TeacherController::class,'edit']);
     Route::put('update-teacher/{id}',[TeacherController::class,'update']);

@@ -25,18 +25,18 @@ class Course extends Model
     }
     public function course_coupon(): HasMany
     {
-        return $this->hasMany(Course_Coupon::class);
+        return $this->hasMany(Coupon::class);
     }
     public function course_video(): HasMany
     {
-        return $this->hasMany(Course_Video::class);
+        return $this->hasMany(Video::class);
     }
     public function course_quiz(): HasMany
     {
-        return $this->hasMany(Course_Quiz::class);
+        return $this->hasMany(Quiz::class);
     }
     public function course_assistant(): HasMany
     {
-        return $this->hasMany(Course_Assistant::class);
+        return $this->hasMany(Assistant::class);
     }
 }
