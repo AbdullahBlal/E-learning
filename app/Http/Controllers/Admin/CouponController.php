@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\CouponType;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CouponController extends Controller
 {
@@ -33,7 +34,9 @@ class CouponController extends Controller
     public function index()
     {
         $coupons = $this->getCoupons();
-        return view('admin.Coupons.index',compact('coupons'));
+
+       //return Inertia::render('Admin/Coupons/SignUpForm', ['coupons' => $coupons]);
+       return view('admin.Coupons.index',compact(['coupons']));
     }
 
     public function insert(Request $request)
