@@ -31,7 +31,7 @@ class CouponValidation implements Rule
     function isValidCoupon($couponCode)
     {
         $coupon = Coupon::where("code","=","$couponCode")->first();
-        if($coupon != null && !$coupon->activated && $coupon->coupon_type->id == 1){
+        if($coupon != null && !$coupon->activated && $coupon->coupon_type->id == 1 ){    // will add Date check later
             return true;
         }
         return false;

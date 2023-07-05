@@ -14,6 +14,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
+use Throwable;
+use function PHPUnit\Framework\exactly;
 
 class RegisterController extends Controller
 {
@@ -92,14 +95,24 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
       $user->save();
-      $student = Student::create([
-          'mobile'=> $data['mobile'],
-          'address'=> $data['address'],
-          'educational_level_id' => $data['educational_level_id'],
-          'coupon_id' => $coupon->id,
-          'user_id' =>  $user->id,
-      ]);
-        $student->save();
+        try {
+
+            $student = Student::create([
+                'educational_level_id' => $data['educational_level_id'],
+                'coupon_id' => $coupon->id,
+                'user_id' => $user->id,
+                'address' => $data['address'],
+                'mobile' => $data['mobile'],
+            ]);
+            $student->save();
+        }
+        catch (Throwable $e)
+        {
+            $coupon->activated =false;
+            $coupon->save();
+            $user->delete();
+        }
+
 
 
      return $user;

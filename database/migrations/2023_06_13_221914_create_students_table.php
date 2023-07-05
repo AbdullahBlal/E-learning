@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('educational_level_id')->constrained('educational_levels');
             $table->foreignId('coupon_id')->constrained('coupons');
             $table->foreignId('user_id')->constrained('users');
+            $table->string('address');
+            $table->string('mobile');
             $table->timestamps();
         });
     }
