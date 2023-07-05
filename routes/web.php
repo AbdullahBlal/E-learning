@@ -39,7 +39,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/courses',[CourseController::class,'index']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('coupons',[CouponController::class, 'index']);
     Route::post('insert-coupon',[CouponController::class, 'insert']);
     Route::get('edit-coupon/{id}',[CouponController::class, 'edit']);
