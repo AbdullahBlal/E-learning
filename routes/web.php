@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CourseVideoController;
 use App\Http\Controllers\Admin\TeacherController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +22,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/courses',[CourseController::class,'index']);
+
 Route::middleware(['auth','isadmin'])->group(function () {
-    Route::get('dashboard',[AdminController::class, 'index']);
     Route::get('coupons',[CouponController::class, 'index']);
     Route::post('insert-coupon',[CouponController::class, 'insert']);
     Route::get('edit-coupon/{id}',[CouponController::class, 'edit']);
@@ -47,5 +59,9 @@ Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('edit-teacher/{id}',[TeacherController::class,'edit']);
     Route::put('update-teacher/{id}',[TeacherController::class,'update']);
     Route::get('delete-teacher/{id}',[TeacherController::class,'delete']);
-
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
